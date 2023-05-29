@@ -1,0 +1,60 @@
+{% block content %}
+    <style>
+        .card {
+            border: 1px solid #000;
+            padding: 10px;
+            width: 300px;
+            margin: 0 auto;
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card h1 {
+            text-align: center;
+            margin-top: 0;
+            font-size: 20px;
+            color: #333;
+        }
+
+        .card p {
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .profile-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-top: 10px;
+        }
+    </style>
+
+    <div class="card" id="card-container">
+        <h1>RLF Driving License</h1>
+        <img src="{{ user_data.profile_picture.url }}" alt="Profile Photo" class="profile-photo">
+        <p><strong>Name:</strong> {{ user_data.Fullname }}</p>
+        <p><strong>Address:</strong> {{ user_data.address }}</p>
+        <p><strong>Gender:</strong> {{ user_data.gender }}</p>
+        <p><strong>CNIC:</strong> {{ user_data.cnic }}</p>
+        <p><strong>D.O.B:</strong> {{ user_data.dob }}</p>
+        <p><strong>Issue Date:</strong> {{ profile.Learner_issue}}</p>
+        <p><strong>Expiry Date:</strong> {{ profile.learner_expire }}</p>
+        <!-- Add more fields as needed -->
+    </div>
+    <a href="#" class="download-button" onclick="downloadIDCard()">Download ID Card</a>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script>
+        function downloadIDCard() {
+            html2canvas(document.querySelector("#card-container")).then(function (canvas) {
+                var link = document.createElement('a');
+                link.href = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+                link.download = 'id_card.png';
+                link.click();
+            });
+        }
+    </script>
+{% endblock %}
